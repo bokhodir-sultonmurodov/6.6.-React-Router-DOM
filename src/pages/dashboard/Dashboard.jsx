@@ -20,7 +20,6 @@ const Dashboard = () => {
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-slate-900 via-slate-950 to-black text-white font-sans select-none">
 
-      {/* Sidebar */}
       <aside className="w-[280px] h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 p-6 flex flex-col justify-between border-r border-gray-700">
 
         <div>
@@ -88,7 +87,6 @@ const Dashboard = () => {
         </footer>
       </aside>
 
-      {/* Main content */}
       <main className="flex-1 p-8 bg-slate-800 overflow-auto scrollbar-thin scrollbar-thumb-amber-600 scrollbar-track-gray-900 rounded-tl-3xl">
         <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-8 min-h-full border border-white/20">
           <Outlet />
