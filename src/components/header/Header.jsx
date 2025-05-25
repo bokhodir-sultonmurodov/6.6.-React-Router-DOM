@@ -20,6 +20,7 @@ const Header = () => {
           <NavLink to="/post" className="hover:text-yellow-300 transition">Posts</NavLink>
           <NavLink to="/contact" className="hover:text-yellow-300 transition">User</NavLink>
           <NavLink to="/login" className="hover:text-yellow-300 transition">Sign In</NavLink>
+          <NavLink to="/dashboard" className="hover:text-yellow-300 transition">Dashboard</NavLink>
         </nav>
       </div>
     </header>

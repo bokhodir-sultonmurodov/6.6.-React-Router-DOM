@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { RingLoader } from 'react-spinners'
+import { api } from '../../api'
+import { useNavigate } from 'react-router-dom'
 
 const Post = () => {
+  const navigate = useNavigate()
+
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setLoading(true)
-    axios
+    api
       .get("https://dummyjson.com/posts")
       .then(res => {
         setData(res.data)
@@ -37,7 +40,7 @@ const Post = () => {
       ) : (
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {data?.posts?.map((post) => (
-            <div
+            <div 
               key={post.id}
               className="rounded-xl p-6 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 text-white shadow-xl hover:scale-[1.02] transition-all duration-300"
             >
@@ -55,7 +58,7 @@ const Post = () => {
 
               <p className="text-white/90 text-sm line-clamp-3 mb-4">{post.body}</p>
 
-              <button className="mt-auto text-sm font-semibold px-4 py-2 rounded-full bg-white text-pink-600 hover:bg-pink-100 transition">
+              <button onClick={()=> navigate(`/post/${post.id}`)} className="mt-auto text-sm font-semibold px-4 py-2 rounded-full bg-white text-pink-600 hover:bg-pink-100 transition cursor-pointer">
                 Read More →
               </button>
             </div>

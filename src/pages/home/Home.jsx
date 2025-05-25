@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { RingLoader } from 'react-spinners'
+import { api } from '../../api'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setLoading(true)
-    axios
-      .get("https://dummyjson.com/products")
+    api
+      .get("/products")
       .then(res => {
         setData(res.data)
       })
@@ -38,10 +40,10 @@ const Home = () => {
         <div className='container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
           {data?.products?.map(product => (
             <div key={product.id} className='border rounded-lg shadow hover:shadow-xl transition duration-300'>
-              <img
+              <img  onClick={()=> navigate(`/product/${product.id}`)}
                 src={product.thumbnail}
                 alt={product.title}
-                className='w-full h-64 object-contain p-4'
+                className='w-full h-64 object-contain p-4 cursor-pointer'
               />
               <div className='p-4 flex flex-col justify-between'>
                 <h3 className='text-lg font-semibold line-clamp-2'>{product.title}</h3>

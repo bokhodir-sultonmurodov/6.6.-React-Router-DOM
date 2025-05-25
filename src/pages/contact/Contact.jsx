@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { FaUser } from "react-icons/fa";
 import { RiTeamLine } from "react-icons/ri";
 import { CiLocationOn } from "react-icons/ci";
 import { IoMail } from "react-icons/io5";
 import { RingLoader } from 'react-spinners';
+import { api } from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 
 function MyComponent({ isLoading }) {
@@ -20,11 +21,12 @@ const Contact = () => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     setLoading(true)
-    axios
-      .get("https://dummyjson.com/users")
+    api
+      .get("/users")
       .then(res => setData(res.data))
       .catch(err => setError(err))
       .finally(() => setLoading(false))
@@ -49,14 +51,14 @@ const Contact = () => {
           {data?.users?.map(user => (
             <div key={user.id} className='bg-white rounded-xl shadow-lg overflow-hidden'>
               <div className='relative'>
-                <img
+                <img 
                   src={user.image}
                   alt={`${user.firstName} ${user.lastName}`}
                   className='w-full h-60 object-cover'
                 />
-                <div className='absolute bottom-0 w-full bg-gray-900 text-white px-4 py-2 flex items-center gap-2'>
+                <div onClick={()=> navigate(`/user/${user.id}`)}  className='cursor-pointer absolute bottom-0 w-full bg-gray-900 text-white px-4 py-2 flex items-center gap-2'>
                   <FaUser />
-                  <span className='text-sm font-medium'>Focusing</span>
+                  <button className='text-sm font-medium '>Focusing</button>
                 </div>
               </div>
               <div className='p-5'>

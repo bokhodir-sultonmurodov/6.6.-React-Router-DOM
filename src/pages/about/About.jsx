@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { IoIosTime } from "react-icons/io"
 import { FaRegHeart } from "react-icons/fa"
 import { IoGift } from "react-icons/io5"
 import { RingLoader } from 'react-spinners'
+import { api } from '../../api'
+import { useNavigate } from 'react-router-dom'
 
 const About = () => {
+  const navigate = useNavigate()
+
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setLoading(true)
-    axios
-      .get("https://dummyjson.com/recipes")
+    api
+      .get("/recipes")
       .then(res => {
         setData(res.data)
       })
@@ -42,10 +45,10 @@ const About = () => {
           {
             data?.recipes?.map(recipe => (
               <div key={recipe.id} className='bg-white rounded-xl overflow-hidden shadow-md relative'>
-                <img
+                <img onClick={()=> navigate(`/recipe/${recipe.id}`)}
                   src={recipe.image}
                   alt={recipe.name}
-                  className='w-full h-56 object-cover'
+                  className='w-full h-56 object-cover cursor-pointer'
                 />
 
                 <div className='absolute top-4 right-4 w-8 h-8 bg-cyan-400 rounded-full flex items-center justify-center shadow-md'>
